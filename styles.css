@@ -1,0 +1,9 @@
+.test-class {
+    background-color: powderblue;
+}
+
+.highlighted {
+    border-width: 5px;
+    border-color: black;
+    background-color: crimson;
+}
