@@ -144,6 +144,8 @@ add_chord_labels(GtkWidget *box)
 
     GtkWidget *vertical_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
     gtk_widget_set_size_request(vertical_box, 300, 300);
+    gtk_widget_set_margin_top(vertical_box, 5);
+    gtk_widget_set_margin_bottom(vertical_box, 5);
     gtk_widget_set_margin_end(vertical_box, 5);
     gtk_widget_set_halign(vertical_box, GTK_ALIGN_END);
 
