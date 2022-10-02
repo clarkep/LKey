@@ -213,6 +213,7 @@ changed_cb (GObject* self, GParamSpec* pspec,
         editing = 0;
         GtkWidget *chord_label = widgets.labels[current_chord];                
         gtk_editable_set_editable(GTK_EDITABLE(self), 0);
+        gtk_widget_remove_css_class(GTK_WIDGET(self), "inactive");
         gtk_widget_add_css_class(GTK_WIDGET(self), "highlighted");
         update_key_state_buffer_new_chord();
     }

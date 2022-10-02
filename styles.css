@@ -7,3 +7,7 @@
     border-color: black;
     background-color: crimson;
 }
+
+.inactive {
+    background-color: #dddddd;
+}

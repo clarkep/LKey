@@ -144,7 +144,7 @@ add_chord_labels(GtkWidget *box)
 
     GtkWidget *vertical_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
     gtk_widget_set_size_request(vertical_box, 300, 300);
-    gtk_widget_set_margin_end(vertical_box, 30);
+    gtk_widget_set_margin_end(vertical_box, 5);
     gtk_widget_set_halign(vertical_box, GTK_ALIGN_END);
 
     GtkWidget *zero_label = gtk_editable_label_new(chord_labels[0]);
@@ -157,14 +157,19 @@ add_chord_labels(GtkWidget *box)
     int index = 1;
     for (int row=0; row<3; row++) {
         GtkWidget *row_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5); 
+        int active = 1;
         for (int col=0; col<3; col++) {
             char *chord_name;
             if (chord_labels[index]) { 
                 chord_name = chord_labels[index]; 
             } else {
                 chord_name = "Empty";
+                active = 0;
             }
             GtkWidget *chord_label = gtk_editable_label_new(chord_name);
+            if (!active) {
+                gtk_widget_add_css_class(chord_label, "inactive");
+            }
             gtk_widget_set_size_request(chord_label, 100, 80);
             gtk_box_append(GTK_BOX(row_box), chord_label);
             label_add_callbacks(chord_label, index);
@@ -188,8 +193,11 @@ activate_cb (GtkApplication* app,
     GtkWidget *kb_picture;
     GtkEventController *keypress;
 
+/*
     GtkBuilder *builder = gtk_builder_new ();
     gtk_builder_add_from_file (builder, "interface.ui", NULL);
+*/
+    GtkBuilder *builder = gtk_builder_new_from_resource("/lkey/interface.ui");
     GObject *window = gtk_builder_get_object (builder, "window");
     gtk_window_set_application (GTK_WINDOW (window), app);
 
