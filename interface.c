@@ -217,17 +217,10 @@ activate_cb (GtkApplication* app,
     GtkEventController *keypress;
     GObject *window;
 
-    // Maybe ? gtk_widget_class_intall_action(GTK_WIDGET_CLASS(GtkWindow), 
-
-/*
-    GtkBuilder *builder = gtk_builder_new ();
-    gtk_builder_add_from_file (builder, "interface.ui", NULL);
-*/
-    /* Build the window ui and styles  */
+    /* Build the basic window ui and styles */
     GtkBuilder *builder = gtk_builder_new_from_resource("/lkey/interface.ui");
     window = gtk_builder_get_object (builder, "window");
     gtk_window_set_application (GTK_WINDOW (window), app);
-    //gtk_widget_set_action_name(
 
     GdkDisplay* display = gtk_widget_get_display(GTK_WIDGET(window));
     GtkCssProvider *style_provider = gtk_css_provider_new();
@@ -246,7 +239,7 @@ activate_cb (GtkApplication* app,
                                    app_entries, G_N_ELEMENTS (app_entries),
                                    app);
 
-    /* Connect velocity slider("Scale") */ 
+    /* Connect velocity slider("Scale") */
     GObject *hor_box = gtk_builder_get_object(builder, "upper_box");
     GObject *velocity_scale = gtk_builder_get_object(builder, "vel_scale");
     gtk_range_set_value(GTK_RANGE(velocity_scale), 127);
@@ -255,7 +248,7 @@ activate_cb (GtkApplication* app,
     add_chord_labels(GTK_WIDGET(hor_box));
     GObject *vert_box = gtk_builder_get_object(builder, "content_box"); 
 
-    /* Draw the keyboard in a DrawingArea */ 
+    /* Draw the keyboard in a DrawingArea */
     GtkWidget *drawing_area = gtk_drawing_area_new();
     gtk_widget_set_size_request (drawing_area, SCALE*KB_WIDGET_WIDTH, SCALE*KB_WIDGET_HEIGHT);
     widgets.drawing_area = GTK_WIDGET(drawing_area);
@@ -263,7 +256,7 @@ activate_cb (GtkApplication* app,
     gtk_drawing_area_set_draw_func (GTK_DRAWING_AREA(drawing_area), draw_cb, NULL, NULL);
     g_signal_connect_after (GTK_WIDGET(drawing_area), "resize", G_CALLBACK (resize_cb), NULL);
 
-    /* Connect basic key press and mouse click callbacks */ 
+    /* Connect basic key press and mouse click callbacks */
     keypress = gtk_event_controller_key_new();
     // Capture events before they filter down and get consumed by other widgets. This
     // is necessary to get arrow keys, which I think are consumed by containers.
