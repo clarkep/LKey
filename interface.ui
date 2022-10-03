@@ -2,6 +2,18 @@
 <interface>
   <object id="window" class="GtkWindow">
     <property name="title">LKey</property>
+    <child type="titlebar">
+      <object class="GtkHeaderBar" id="header">
+        <child type="title">
+        <!-- Add title here -->
+        </child>
+        <child type="end">
+          <object class="GtkMenuButton" id="menu-button">
+            <property name="direction">none</property>
+          </object>
+        </child>
+      </object>
+    </child>
     <child>
     <object class="GtkBox" id="content_box">
       <property name="orientation">vertical</property>

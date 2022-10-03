@@ -183,6 +183,27 @@ add_chord_labels(GtkWidget *box)
     gtk_box_append(GTK_BOX(box), vertical_box);
 }
 
+static void
+preferences_activated (GSimpleAction *action,
+                       GVariant      *parameter,
+                       gpointer       app)
+{
+}
+
+static void
+quit_activated (GSimpleAction *action,
+                GVariant      *parameter,
+                gpointer       app)
+{
+  g_application_quit (G_APPLICATION (app));
+}
+
+static GActionEntry app_entries[] =
+{
+  { "preferences", preferences_activated, NULL, NULL, NULL },
+  { "quit", quit_activated, NULL, NULL, NULL }
+};
+
 /* SETUP UI AND REGISTER CALLBACKS */
 
 void
@@ -194,14 +215,19 @@ activate_cb (GtkApplication* app,
     GtkWidget *velocity_label;
     GtkWidget *kb_picture;
     GtkEventController *keypress;
+    GObject *window;
+
+    // Maybe ? gtk_widget_class_intall_action(GTK_WIDGET_CLASS(GtkWindow), 
 
 /*
     GtkBuilder *builder = gtk_builder_new ();
     gtk_builder_add_from_file (builder, "interface.ui", NULL);
 */
+    /* Build the window ui and styles  */
     GtkBuilder *builder = gtk_builder_new_from_resource("/lkey/interface.ui");
-    GObject *window = gtk_builder_get_object (builder, "window");
+    window = gtk_builder_get_object (builder, "window");
     gtk_window_set_application (GTK_WINDOW (window), app);
+    //gtk_widget_set_action_name(
 
     GdkDisplay* display = gtk_widget_get_display(GTK_WIDGET(window));
     GtkCssProvider *style_provider = gtk_css_provider_new();
@@ -210,6 +236,17 @@ activate_cb (GtkApplication* app,
     gtk_style_context_add_provider_for_display(display, GTK_STYLE_PROVIDER(style_provider),  
             GTK_STYLE_PROVIDER_PRIORITY_USER);
 
+    /* Set up the MenuButton, menu, and its callbacks */
+    GObject *menu_button = gtk_builder_get_object(builder, "menu-button");
+    GtkBuilder *menu_builder = gtk_builder_new_from_resource ("/lkey/menu.ui");
+    GMenuModel *menu = G_MENU_MODEL (gtk_builder_get_object (menu_builder, "menu"));
+    gtk_menu_button_set_menu_model (GTK_MENU_BUTTON (menu_button), menu);
+    g_object_unref (menu_builder);
+    g_action_map_add_action_entries (G_ACTION_MAP (app),
+                                   app_entries, G_N_ELEMENTS (app_entries),
+                                   app);
+
+    /* Connect velocity slider("Scale") */ 
     GObject *hor_box = gtk_builder_get_object(builder, "upper_box");
     GObject *velocity_scale = gtk_builder_get_object(builder, "vel_scale");
     gtk_range_set_value(GTK_RANGE(velocity_scale), 127);
@@ -218,14 +255,15 @@ activate_cb (GtkApplication* app,
     add_chord_labels(GTK_WIDGET(hor_box));
     GObject *vert_box = gtk_builder_get_object(builder, "content_box"); 
 
+    /* Draw the keyboard in a DrawingArea */ 
     GtkWidget *drawing_area = gtk_drawing_area_new();
     gtk_widget_set_size_request (drawing_area, SCALE*KB_WIDGET_WIDTH, SCALE*KB_WIDGET_HEIGHT);
     widgets.drawing_area = GTK_WIDGET(drawing_area);
     gtk_box_append(GTK_BOX(vert_box), drawing_area);
-
     gtk_drawing_area_set_draw_func (GTK_DRAWING_AREA(drawing_area), draw_cb, NULL, NULL);
     g_signal_connect_after (GTK_WIDGET(drawing_area), "resize", G_CALLBACK (resize_cb), NULL);
 
+    /* Connect basic key press and mouse click callbacks */ 
     keypress = gtk_event_controller_key_new();
     // Capture events before they filter down and get consumed by other widgets. This
     // is necessary to get arrow keys, which I think are consumed by containers.
