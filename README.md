@@ -10,6 +10,7 @@ Requirements
 Installation
 -----------
 In the source directory, do:
+
     $ meson build
     $ cd build
     $ meson compile
