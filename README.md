@@ -10,10 +10,10 @@ Requirements
 Installation
 -----------
 In the source directory, do:
-    meson build
-    cd build
-    meson compile
-    meson install
+    $ meson build
+    $ cd build
+    $ meson compile
+    $ sudo meson install
 
 How to Use
 ----------
