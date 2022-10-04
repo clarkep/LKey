@@ -7,4 +7,4 @@ gtk4_dep = dependency('gtk4')
 jack_dep = dependency('jack')
 deps = [gtk4_dep, jack_dep]
 src = ['lkey.c', 'interface.c', 'resources.c']
-executable('lkey', src, dependencies : deps)
+executable('lkey', src, dependencies : deps, install : true)

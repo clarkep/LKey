@@ -224,8 +224,7 @@ activate_cb (GtkApplication* app,
 
     GdkDisplay* display = gtk_widget_get_display(GTK_WIDGET(window));
     GtkCssProvider *style_provider = gtk_css_provider_new();
-    GFile *css_file = g_file_new_for_path("styles.css");
-    gtk_css_provider_load_from_file(style_provider, css_file);
+    gtk_css_provider_load_from_resource(style_provider, "/lkey/styles.css");
     gtk_style_context_add_provider_for_display(display, GTK_STYLE_PROVIDER(style_provider),  
             GTK_STYLE_PROVIDER_PRIORITY_USER);
 

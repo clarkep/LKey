@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Lkey
+Icon=lkey
+StartupNotify=true
+Exec=lkey
+

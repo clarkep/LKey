@@ -18,7 +18,7 @@ In the source directory, do:
 How to Use
 ----------
 Lkey's keyboard starts at the 'Z' key on your computer keyboard and ends at the
-'/' key. These correspond to notes C through E.
+'/' key. These correspond to musical notes C through E.
 
 Switch chords: 0-9, arrow keys, or left click.
 Change octave: '+' and '-'.

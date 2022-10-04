@@ -3,6 +3,7 @@
     <gresource prefix="/lkey">
         <file preprocess="xml-stripblanks">interface.ui</file>
         <file preprocess="xml-stripblanks">menu.ui</file>
+        <file>styles.css</file>
     </gresource>
 </gresources>
 
