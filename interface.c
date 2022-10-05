@@ -210,10 +210,6 @@ void
 activate_cb (GtkApplication* app,
         gpointer        user_data)
 {
-    GtkWidget *velocity_box;
-    GtkWidget *label_title;
-    GtkWidget *velocity_label;
-    GtkWidget *kb_picture;
     GtkEventController *keypress;
     GObject *window;
 

@@ -13,8 +13,8 @@ In the source directory, do:
 
     $ meson build
     $ cd build
-    $ meson compile
-    $ sudo meson install
+    $ ninja 
+    $ sudo ninja install 
 
 How to Use
 ----------

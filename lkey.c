@@ -211,7 +211,6 @@ changed_cb (GObject* self, GParamSpec* pspec,
         gtk_event_controller_set_propagation_phase(widgets.window_event_controller,
         GTK_PHASE_CAPTURE);
         editing = 0;
-        GtkWidget *chord_label = widgets.labels[current_chord];                
         gtk_editable_set_editable(GTK_EDITABLE(self), 0);
         gtk_widget_remove_css_class(GTK_WIDGET(self), "inactive");
         gtk_widget_add_css_class(GTK_WIDGET(self), "highlighted");
@@ -376,7 +375,7 @@ int start_app(int argc, char **argv)
 {
     int status; GtkApplication *app;
 
-    app = gtk_application_new("org.gtk.example", G_APPLICATION_FLAGS_NONE);
+    app = gtk_application_new("org.gtk.example", G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, "activate", G_CALLBACK (activate_cb), NULL);
     status = g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
@@ -399,6 +398,7 @@ int setup_jack()
         fprintf(stderr, "cannot activate client");
         return 1;
     }
+    return 0;
 }
 
 int main (int argc, char **argv)
