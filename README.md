@@ -1,6 +1,6 @@
 Lkey
 ======
-Lkey is a MIDI keyboard that can play chords with a single keypress. 
+Lkey is a MIDI keyboard for Linux that can play chords with a single keypress. 
 
 Requirements
 -------------
